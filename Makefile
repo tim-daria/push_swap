@@ -6,7 +6,7 @@
 #    By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:41:15 by dtimofee          #+#    #+#              #
-#    Updated: 2024/12/10 13:20:05 by dtimofee         ###   ########.fr        #
+#    Updated: 2025/01/17 15:41:10 by dtimofee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,19 +17,28 @@ CFLAGS = -Wall -Wextra
 
 
 NAME = push.swap
-SRCS = main.c push_swap.c
+SRCS = main.c #push_swap.c
 OBJS = $(SRCS:.c=.o)
+
+LIBFT_FOLDER = ./Libft
+LIBFT_ARCHIVE = libft.a
+LIBFT_LIB = ft
+LIBFT = $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -g $(OBJS) -o $(NAME)
+$(LIBFT):
+	make -C $(LIBFT_FOLDER)
+
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) -g $(OBJS) -o $(NAME) -L$(LIBFT_FOLDER) -l$(LIBFT_LIB)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
+	make fclean -C $(LIBFT_FOLDER)
 
 fclean: clean
 	rm -f $(NAME)
