@@ -13,7 +13,7 @@
 
 CC = cc
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 
 
 NAME = push.swap
@@ -28,7 +28,7 @@ LIBFT = $(LIBFT_FOLDER)/$(LIBFT_ARCHIVE)
 all: $(NAME)
 
 $(LIBFT):
-	make -C $(LIBFT_FOLDER)
+	make bonus -C $(LIBFT_FOLDER)
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -g $(OBJS) -o $(NAME) -L$(LIBFT_FOLDER) -l$(LIBFT_LIB)
