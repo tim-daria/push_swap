@@ -13,7 +13,7 @@
 #include "libft.h"
 
 static t_list	*add_node(t_list *lst, t_list **dest,
-		int (*f)(void *), void (*del)(void *))
+		void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*node;
 	void	*node_content;

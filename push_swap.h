@@ -15,5 +15,6 @@
 # define PUSH_SWAP_H
 
 #include "Libft/libft.h"
+#include <stdlib.h>
 
 #endif
