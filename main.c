@@ -81,14 +81,13 @@ static void	transfer(t_list **stack_a, t_list **stack_b)
 		 {
 			printf("c");
 			fflush(0);
-			if ((*(int*)num > *(int*)max && (*stack_b)->content == max) ||
-				(*(int*)num < *(int*)min && (*stack_b)->content == min))
+			if ((*(int*)num > *(int*)max || *(int*)num < *(int*)min) && (*stack_b)->content == max)
 			{
 				ft_push_tob(stack_b, &last, num);
 				printf("where");
 				fflush(0);
 			}
-			else if (*(int*)num > *(int*)max && (*stack_b)->content != max)
+			else if ((*(int*)num > *(int*)max || *(int*)num < *(int*)min) && (*stack_b)->content != max)
 			{
 				printf("I");
 				fflush(0);
@@ -96,18 +95,17 @@ static void	transfer(t_list **stack_a, t_list **stack_b)
 					rotate_clockwise(stack_b, &last);
 				ft_push_tob(stack_b, &last, num);
 			}
-			else if (*(int*)num < *(int*)min && (*stack_b)->content != min)
-			{
-				while ((*stack_b)->content != min)
-					rotate_clockwise(stack_b, &last);
-				ft_push_tob(stack_b, &last, num);
-			}
+			// else if (*(int*)num > *(int*)min  && *(int*)num < *(int*)max)
+			// {
+			// 	while ((*stack_b)->content != min)
+			// 		rotate_clockwise(stack_b, &last);
+			// 	ft_push_tob(stack_b, &last, num);
+			// }
 			else
-			//if (*(int*)num < *(int*)max)
 			{
 				printf("am");
 				fflush(0);
-				while (*(int*)num > *(int*)(*stack_b)->content)
+				while (*(int*)num < *(int*)(*stack_b)->content || *(int*)num > *(int*) last->content)
 					rotate_clockwise(stack_b, &last);
 				ft_push_tob(stack_b, &last, num);
 			}
