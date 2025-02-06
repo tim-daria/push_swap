@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 
 NAME = push.swap
-SRCS = main.c #push_swap.c
+SRCS = operations.c push_swap.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_FOLDER = ./Libft

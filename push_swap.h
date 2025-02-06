@@ -17,4 +17,9 @@
 #include "Libft/libft.h"
 #include <stdlib.h>
 
+void	rotate_clockwise(t_list **stack_b, t_list **last);
+void	ft_push_tob(t_list **dst, t_list **last, void *num);
+void	*ft_pop(t_list **src);
+void	transfer(t_list **stack_a, t_list **stack_b);
+
 #endif
