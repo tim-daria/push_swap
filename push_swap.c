@@ -72,23 +72,41 @@ int	main(int argc, char **argv)
 		// }
 		// printf("\n");
 		transfer(&stack_a, &stack_b);
-		while (stack_a != NULL)
-		{
-			printf("%d ", *(int *)stack_a->content);
-			stack_a = stack_a->next;
-		}
-		printf("\n");
-		// while (stack_b->next != stack_b)
-		while (stack_b != NULL)
-		{
-			printf("%d ", *(int *)stack_b->content);
-			fflush(0);
-			// temp = stack_b->next;
-			// ft_lstdelone(stack_b, free);
-			// stack_b = temp;
-			stack_b = stack_b->next;
-		}
-		printf("\n");
+		// while (stack_a != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_a->content);
+		// 	stack_a = stack_a->next;
+		// }
+		// printf("\n");
+		// // while (stack_b->next != stack_b)
+		// while (stack_b != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_b->content);
+		// 	fflush(0);
+		// 	// temp = stack_b->next;
+		// 	// ft_lstdelone(stack_b, free);
+		// 	// stack_b = temp;
+		// 	stack_b = stack_b->next;
+		// }
+		// printf("\n");
+		ft_push_toa(&stack_a, &stack_b);
+		// while (stack_a != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_a->content);
+		// 	stack_a = stack_a->next;
+		// }
+		// printf("\n");
+		// // while (stack_b->next != stack_b)
+		// while (stack_b != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_b->content);
+		// 	fflush(0);
+		// 	// temp = stack_b->next;
+		// 	// ft_lstdelone(stack_b, free);
+		// 	// stack_b = temp;
+		// 	stack_b = stack_b->next;
+		// }
+		// printf("\n");
 	}
 	return (0);
 }

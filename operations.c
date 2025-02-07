@@ -16,6 +16,7 @@ void	rotate_clockwise(t_list **stack_b, t_list **last)
 {
 	*stack_b = (*stack_b)->next;
 	*last = (*last)->next;
+	ft_putendl_fd("rb", 1);
 }
 void	ft_push_tob(t_list **dst, t_list **last, void *num)
 {
@@ -29,6 +30,7 @@ void	ft_push_tob(t_list **dst, t_list **last, void *num)
 		ft_lstadd_front(dst, ft_lstnew(num));
 		(*last)->next = *dst;
 	}
+	ft_putendl_fd("pb", 1);
 }
 void	*ft_pop(t_list **src)
 {
@@ -41,6 +43,19 @@ void	*ft_pop(t_list **src)
 	free(temp);
 	return (num);
 }
+
+void	ft_push_toa(t_list **dst, t_list **src)
+{
+	void	*num;
+
+	while (*src != NULL)
+	{
+		num = ft_pop(src);
+		ft_lstadd_front(dst, ft_lstnew(num));
+		ft_putendl_fd("pa", 1);
+	}
+}
+
 void	transfer(t_list **stack_a, t_list **stack_b)
 {
 	void	*num;
