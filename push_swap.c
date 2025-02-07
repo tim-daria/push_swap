@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/01/17 16:03:56 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:59:24 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 		stack_a = NULL;
 		stack_b = NULL;
 		if (argc != 2 || convert_input(argv[1], &stack_a) == 1)
-			ft_putendl_fd("ERROR", 2);
+			ft_putendl_fd("Error", 2);
 
 		// while (stack_a != NULL)
 		// {
