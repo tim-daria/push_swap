@@ -17,6 +17,15 @@
 #include "Libft/libft.h"
 #include <stdlib.h>
 
+typedef struct s_stack
+{
+	t_list	*first;
+	t_list	*last;
+	int		len;
+	int		min;
+	int		max;
+} t_stack;
+
 void	rotate_clockwise(t_list **stack_b, t_list **last);
 void	ft_push_tob(t_list **dst, t_list **last, void *num);
 void	*ft_pop(t_list **src);

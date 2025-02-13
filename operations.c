@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	rotate_clockwise(t_list **stack_b, t_list **last)
+void	rb(t_list **stack_b, t_list **last)
 {
 	*stack_b = (*stack_b)->next;
 	*last = (*last)->next;
@@ -56,19 +56,23 @@ void	ft_push_toa(t_list **dst, t_list **src)
 		ft_putendl_fd("pa", 1);
 	}
 }
-
-void	transfer(t_list **stack_a, t_list **stack_b)
+void	move(t_stack *stack_a, t_stack *stack_b)
+{
+	stack_b->max = stack_a->first->content; // мне надо установить это только для первого прохода через цикл, дальше надо сравнивать
+	stack_b->min = stack_a->first->content;
+}
+void	transfer(t_stack *stack_a, t_stack *stack_b)
 {
 	void	*num;
 	int		count;
 	void	*max;
 	void	*min;
-	t_list	*last;
+	//t_list	*last;
 	int		i;
 
-	max = (*stack_a)->content;
-	min = (*stack_a)->content;
-	last = NULL;
+	stack_b->max = stack_a->first->content;
+	stack_b->min = stack_a->first->content;
+	//last = NULL;
 	count = 0;
 	i = 0;
 	while (*stack_a != NULL)
@@ -85,7 +89,7 @@ void	transfer(t_list **stack_a, t_list **stack_b)
 			{
 				while ((*stack_b)->content != max)
 				{
-					rotate_clockwise(stack_b, &last);
+					rb(&stack_b->first, &stack_b->last);
 					i++;
 				}
 				// printf("%d - count\n", count);
@@ -113,7 +117,7 @@ void	transfer(t_list **stack_a, t_list **stack_b)
 			{
 				while (*(int*)num < *(int*)(*stack_b)->content || *(int*)num > *(int*) last->content)
 				{
-					rotate_clockwise(stack_b, &last);
+					rb(&stack_b->first, &stack_b->last);
 					i++;
 				}
 				// printf("%d - count\n", count);
@@ -146,7 +150,7 @@ void	transfer(t_list **stack_a, t_list **stack_b)
 	}
 	while ((*stack_b)->content != max)
 	{
-		rotate_clockwise(stack_b, &last);
+		rb(&stack_b->first, &stack_b->last);
 		i++;
 	}
 	// printf("%d - count\n", count);
