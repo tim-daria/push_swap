@@ -59,6 +59,7 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 		stack_a->len++;
 	}
 	stack_a->last = ft_lstlast(temp);
+	stack_a->last->next = stack_a->first;
 	free (str_array);
 	return (0);
 }
@@ -88,16 +89,16 @@ void	sort3(t_stack *stack)
 		}
 	}
 	else if (c > b && c > a)
+	{
+		stack->max = c;
+		if (a < b)
+			stack->min = a;
+		else
 		{
-			stack->max = c;
-			if (a < b)
-				stack->min = a;
-			else
-			{
-				stack->min = b;
-				swap();
-			}
+			stack->min = b;
+			swap();
 		}
+	}
 	else
 	{
 		stack->max = b;
@@ -120,6 +121,7 @@ int	main(int argc, char **argv)
 	{
 		t_stack	stack_a;
 		t_stack	stack_b;
+		t_best	best_node;
 		// t_list	*temp; // todo remove
 
 		stack_a.first = NULL;
@@ -136,9 +138,12 @@ int	main(int argc, char **argv)
 		// }
 		// printf("\n");
 		while (stack_a.len > 3)
-			move(&stack_a, &stack_b, what_to_move(&stack_a, &stack_b, ));
+		{
+			best_node = calculate_cost(stack_a, stack_b);
+			move(&stack_a, &stack_b, best_node);
+		}
 			//вызываем функцию move(она должна выбрать подходящее числоБ которое выгодно перенести в стек б)
-		transfer(&stack_a, &stack_b);
+		//transfer(&stack_a, &stack_b);
 		// while (stack_a != NULL)
 		// {
 		// 	printf("%d ", *(int *)stack_a->content);

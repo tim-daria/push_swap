@@ -16,6 +16,7 @@
 
 #include "Libft/libft.h"
 #include <stdlib.h>
+#include <limits.h>
 
 typedef struct s_stack
 {
@@ -25,6 +26,17 @@ typedef struct s_stack
 	int		min;
 	int		max;
 } t_stack;
+
+typedef struct s_best
+{
+	t_list	*pos;
+	int		sum;
+	int		ra;
+	int		rra;
+	int		rb;
+	int		rrb;
+} t_best;
+
 
 void	rotate_clockwise(t_list **stack_b, t_list **last);
 void	ft_push_tob(t_list **dst, t_list **last, void *num);

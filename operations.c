@@ -13,10 +13,10 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	rb(t_list **stack_b, t_list **last)
+void	rb(t_stack *stack_b)
 {
-	*stack_b = (*stack_b)->next;
-	*last = (*last)->next;
+	stack_b->first = stack_b->first->next;
+	stack_b->last = stack_b->last->next;
 	// ft_putendl_fd("rb", 1);
 }
 void	ft_push_tob(t_list **dst, t_list **last, void *num)
