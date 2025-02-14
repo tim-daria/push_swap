@@ -115,6 +115,7 @@ void	sort3(t_stack *stack)
 		}
 	}
 }
+
 int	main(int argc, char **argv)
 {
 	if (argc > 1)
@@ -140,9 +141,8 @@ int	main(int argc, char **argv)
 		while (stack_a.len > 3)
 		{
 			best_node = calculate_cost(stack_a, stack_b);
-			move(&stack_a, &stack_b, best_node);
+			move(&stack_a, &stack_b, &best_node);
 		}
-			//вызываем функцию move(она должна выбрать подходящее числоБ которое выгодно перенести в стек б)
 		//transfer(&stack_a, &stack_b);
 		// while (stack_a != NULL)
 		// {

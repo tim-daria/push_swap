@@ -30,7 +30,8 @@ typedef struct s_stack
 typedef struct s_best
 {
 	t_list	*pos;
-	int		sum;
+	int		index_a;
+	int		index_b;
 	int		ra;
 	int		rra;
 	int		rb;
@@ -38,9 +39,12 @@ typedef struct s_best
 } t_best;
 
 
-void	rotate_clockwise(t_list **stack_b, t_list **last);
+void	rb(t_stack *stack_b);
 void	ft_push_tob(t_list **dst, t_list **last, void *num);
 void	*ft_pop(t_list **src);
 void	transfer(t_list **stack_a, t_list **stack_b);
 void	ft_push_toa(t_list **dst, t_list **src);
+t_best	calculate_cost(t_stack a, t_stack b);
+void	sort3(t_stack *stack);
+
 #endif
