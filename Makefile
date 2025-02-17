@@ -6,18 +6,17 @@
 #    By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:41:15 by dtimofee          #+#    #+#              #
-#    Updated: 2025/01/17 15:41:10 by dtimofee         ###   ########.fr        #
+#    Updated: 2025/02/17 15:51:37 by dtimofee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
-
-NAME = push.swap
-SRCS = operations.c push_swap.c
+NAME = push_swap
+SRCS = operations.c push_swap.c calculations.c directions.c rotations.c utils.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_FOLDER = ./Libft

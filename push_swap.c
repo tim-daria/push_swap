@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/07 16:59:24 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:33:59 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,38 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	int		*num;
 	int		len_array;
 
+	str_array = NULL;
 	if (argc == 2)
 		str_array = ft_split(argv[1], ' ');
 	else
 	{
 		i = 0;
+		str_array = malloc(argc * sizeof (char*));
+		if (str_array == NULL)
+			return (1);
 		while (argc-- > 1)
-			str_array[i++] = argv[i + 1];
+		{
+			// str_array[i] = malloc(sizeof(int));
+			// if (str_array[i] == NULL)
+			// 	return (1);
+			str_array[i] = argv[i + 1];
+			i++;
+		}
+		str_array[i] = NULL;
 	}
-	len_array = ft_arraylen(str_array);
-	if (str_array == NULL || len_array == 0) //safe_atoi for input_check
+	if (str_array == NULL) //|| len_array == 0 //safe_atoi for input_check
 		return (1);
+	len_array = ft_arraylen(str_array);
 	i = 0;
 	num = malloc(sizeof(int));
 	if (num == NULL)
 		return (1); // delete all allocated memory (str_array)
 	*num = ft_atoi(str_array[i++]);
 	stack_a->first = ft_lstnew(num);
+	if (stack_a->first == NULL)
+		return (1); // and free all allocated memory
 	temp = stack_a->first;
-	stack_a->len = 0;
+	stack_a->len = 1;
 	while (str_array[i] != NULL)
 	{
 		num = malloc(sizeof(int));
@@ -59,62 +72,62 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 		stack_a->len++;
 	}
 	stack_a->last = ft_lstlast(temp);
-	stack_a->last->next = stack_a->first;
+	//stack_a->last->next = stack_a->first;
 	free (str_array);
 	return (0);
 }
 
-void	sort3(t_stack *stack)
-{
-	int	a;
-	int	b;
-	int	c;
+// void	sort3(t_stack *stack)
+// {
+// 	int	a;
+// 	int	b;
+// 	int	c;
 
-	a = *(int *)stack->first->content;
-	b = *(int *)stack->first->next->content;
-	c = *(int *)stack->last->content;
-	if (a > b && a > c)
-	{
-		stack->max = a;
-		if (c < b)
-		{
-			stack->min = c;
-			swap();
-			rra();
-		}
-		else
-		{
-			stack->min = b;
-			ra();
-		}
-	}
-	else if (c > b && c > a)
-	{
-		stack->max = c;
-		if (a < b)
-			stack->min = a;
-		else
-		{
-			stack->min = b;
-			swap();
-		}
-	}
-	else
-	{
-		stack->max = b;
-		if (a < b)
-		{
-			stack->min = a;
-			swap();
-			ra();
-		}
-		else
-		{
-			stack->min = b;
-			rra();
-		}
-	}
-}
+// 	a = *(int *)stack->first->content;
+// 	b = *(int *)stack->first->next->content;
+// 	c = *(int *)stack->last->content;
+// 	if (a > b && a > c)
+// 	{
+// 		stack->max = a;
+// 		if (c < b)
+// 		{
+// 			stack->min = c;
+// 			swap(stack->first);
+// 			rev_rotate_ab(stack);
+// 		}
+// 		else
+// 		{
+// 			stack->min = b;
+// 			rotate_ab(stack);
+// 		}
+// 	}
+// 	else if (c > b && c > a)
+// 	{
+// 		stack->max = c;
+// 		if (a < b)
+// 			stack->min = a;
+// 		else
+// 		{
+// 			stack->min = b;
+// 			swap(stack->first);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		stack->max = b;
+// 		if (a < b)
+// 		{
+// 			stack->min = a;
+// 			swap(stack->first);
+// 			rotate_ab(stack);
+// 		}
+// 		else
+// 		{
+// 			stack->min = b;
+// 			rev_rotate_ab(stack);
+// 		}
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {
@@ -132,15 +145,18 @@ int	main(int argc, char **argv)
 		// 	ft_putendl_fd("Error", 2);
 		if (convert_input(argc, argv, &stack_a) == 1)
 			ft_putendl_fd("Error", 2);
-		// while (stack_a != NULL)
-		// {
-		// 	printf("%d ", *(int *)stack_a->content);
-		// 	stack_a = stack_a->next;
-		// }
-		// printf("\n");
+		while (stack_a.first != NULL)
+		{
+			printf("%d ", *(int *)stack_a.first->content);
+			stack_a.first = stack_a.first->next;
+		}
+		printf("\n");
+		fflush(0);
 		while (stack_a.len > 3)
 		{
-			best_node = find_bestnode(stack_a, stack_b);
+			find_bestnode(stack_a, stack_b, &best_node);
+			printf("best node sum = %d\n", best_node.sum);
+			fflush(0);
 			move(&stack_a, &stack_b, &best_node);
 		}
 		//transfer(&stack_a, &stack_b);
@@ -161,13 +177,19 @@ int	main(int argc, char **argv)
 		// 	stack_b = stack_b->next;
 		// }
 		// printf("\n");
-		sort3(&stack_a);
-		ft_push_toa(&stack_a, &stack_b);
-		// while (stack_a != NULL)
-		// {
-		// 	printf("%d ", *(int *)stack_a->content);
-		// 	stack_a = stack_a->next;
-		// }
+
+
+		stack_b.last->next = NULL;
+
+		//sort3(&stack_a);
+		//ft_push_toa(&stack_a, &stack_b);
+
+
+		while (stack_b.first != NULL)
+		{
+			printf("%d ", *(int *)stack_b.first->content);
+			stack_b.first = stack_b.first->next;
+		}
 		// printf("\n");
 		// // while (stack_b->next != stack_b)
 		// while (stack_b != NULL)

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   calculations.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtimofee <dtimofee@student.42berlin.de>    #+#  +:+       +#+        */
+/*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-14 08:38:55 by dtimofee          #+#    #+#             */
-/*   Updated: 2025-02-14 08:38:55 by dtimofee         ###   ########.fr       */
+/*   Created: 2025/02/14 08:38:55 by dtimofee          #+#    #+#             */
+/*   Updated: 2025/02/17 15:49:02 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 static int	find_pos_inb(t_stack b, void *num)
 {
@@ -35,25 +36,10 @@ static int	find_pos_inb(t_stack b, void *num)
 	}
 	return (i);
 }
-static void	get_direction(int i, int j, int size_a, int size_b, t_best *min)
-{
-	int	ra_rb;
-	int	ra_rrb;
-	int	rra_rb;
-	int	rra_rrb;
-	int	min;
 
-	ra_rb = ft_min(i, j) + ft_abs(i - j);
-	//min = ra_rb;
-	ra_rrb = i + size_b - j;
-	// if (ra_rrb < min)
-	// 	min = ra_rrb;
-	rra_rb = size_a - i + j;
-	rra_rrb = ft_min(size_a - i, size_b - j) + ft_abs((size_a - i) - (size_b - j));
-}
-t_best	calculate_cost(t_stack a, t_stack b)
+void	find_bestnode(t_stack a, t_stack b, t_best *best_node)
 {
-	t_best	min;
+	t_best	current;
 	//int		sum;
 	int		index_a;
 	int		index_b;
@@ -63,19 +49,28 @@ t_best	calculate_cost(t_stack a, t_stack b)
 	//sum = 0;
 	// i = 0;
 	index_a = 0;
-	//min.sum = INT_MAX;
+	// if (b.len < 2)
+	// {
+	// 	best_node->sum = 0;
+	// 	printf("best_node movements - %d ", best_node->rs);
+	// 	return;
+	// }
+	best_node->sum = INT_MAX;
 	a.last->next = NULL;
-	if (b.len < 2)
-	{
-		min.pos = a.first;
-		return (min);
-	}
+	printf("best_node movements - %d ", best_node->sum);
 	while (a.first != NULL)
 	{
 		//cost_a = ft_min(i, a.len - i);
 		index_b = find_pos_inb(b, a.first->content);
+		printf("pos_b - %d", index_b);
+		fflush(0);
 		//cost_b = ft_min(k, b.len - k);
-		get_direction(index_a, index_b, a.len, b.len, &min);
+		get_direction(index_a, index_b, a.len, b.len, &current);
+		if (current.sum < best_node->sum)
+		{
+			*best_node = current;
+			best_node->pos = a.first;
+		}
 		//sum = cost_a + cost_b;
 		// if (sum < min.sum)
 		// {
@@ -93,5 +88,4 @@ t_best	calculate_cost(t_stack a, t_stack b)
 		a.first = a.first->next;
 		index_a++;
 	}
-	return (min);
 }

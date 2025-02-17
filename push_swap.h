@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:00:47 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/01/17 15:32:47 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:37:52 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,26 @@ typedef struct s_stack
 typedef struct s_best
 {
 	t_list	*pos;
-	int		index_a;
-	int		index_b;
+	int		sum;
+	int		rs;
+	int		rrs;
 	int		ra;
 	int		rra;
 	int		rb;
 	int		rrb;
 } t_best;
 
-
-void	rb(t_stack *stack_b);
-void	ft_push_tob(t_list **dst, t_list **last, void *num);
-void	*ft_pop(t_list **src);
-void	transfer(t_list **stack_a, t_list **stack_b);
-void	ft_push_toa(t_list **dst, t_list **src);
-t_best	calculate_cost(t_stack a, t_stack b);
+void	swap(t_list *first);
+void	rotate_ab(t_stack *stack);
+void	rev_rotate_ab(t_stack *stack);
+void	do_rotations(t_stack *stack_a, t_stack *stack_b, t_best *to_move);
+void	find_bestnode(t_stack a, t_stack b, t_best *best_node);
+void	get_direction(int i, int j, int size_a, int size_b, t_best *current);
+void	move(t_stack *stack_a, t_stack *stack_b, t_best *to_move);
 void	sort3(t_stack *stack);
+int		ft_min(int a, int b);
+int		ft_abs(int i);
+t_list *ft_before_last(t_list *lst, t_list *last);
+
 
 #endif
