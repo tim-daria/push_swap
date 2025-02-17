@@ -140,7 +140,7 @@ int	main(int argc, char **argv)
 		// printf("\n");
 		while (stack_a.len > 3)
 		{
-			best_node = calculate_cost(stack_a, stack_b);
+			best_node = find_bestnode(stack_a, stack_b);
 			move(&stack_a, &stack_b, &best_node);
 		}
 		//transfer(&stack_a, &stack_b);

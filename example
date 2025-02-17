@@ -1,0 +1,26 @@
+	find_move() {
+		move->index_a = i;
+		move->index_b = get_index_b(stack_b, current->value);
+		get_directions(move);
+	}
+
+	find_best_move() {
+		int i;
+		t_list current;
+
+		i = 0;
+		current = stack_a->first;
+		while (stack_a->get_item(i))
+		{
+			move = find_move(stack_a, stack_b, current, i);
+			if (move->nr_of_moves < best->nr_of_moves)
+				*best = *move;
+		}
+		return (best);
+	}
+
+	while (not_sorted(stack_a, stack_b) && stack_a.nr_of_items > 3)
+	{
+		move = find_best_move(stack_a, stack_b);
+		do_move(move);
+	}

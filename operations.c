@@ -55,6 +55,14 @@ void	rrb(t_stack *stack_b)
 	stack_b->last = pre_last;
 	ft_putendl_fd("rrb", 1);
 }
+void	swap(t_list *first)
+{
+	void	*temp;
+
+	temp = first->content;
+	first->content = first->next->content;
+	first->next->content = temp;
+}
 
 void	ft_push_tob(t_list **dst, t_list **last, void *num)
 {
