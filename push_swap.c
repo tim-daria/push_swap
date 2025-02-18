@@ -13,22 +13,22 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-static int	ft_arraylen(char **str_array)
-{
-	int	len;
+// static int	ft_arraylen(char **str_array)
+// {
+// 	int	len;
 
-	len = 0;
-	while (str_array[len] != NULL)
-		len++;
-	return (len);
-}
+// 	len = 0;
+// 	while (str_array[len] != NULL)
+// 		len++;
+// 	return (len);
+// }
 static int	convert_input(int argc, char **argv, t_stack *stack_a)
 {
 	int		i;
 	char	**str_array;
 	t_list	*temp;
 	int		*num;
-	int		len_array;
+	// int		len_array;
 
 	str_array = NULL;
 	if (argc == 2)
@@ -51,7 +51,7 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	}
 	if (str_array == NULL) //|| len_array == 0 //safe_atoi for input_check
 		return (1);
-	len_array = ft_arraylen(str_array);
+	//len_array = ft_arraylen(str_array);
 	i = 0;
 	num = malloc(sizeof(int));
 	if (num == NULL)
@@ -77,57 +77,61 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	return (0);
 }
 
-// void	sort3(t_stack *stack)
-// {
-// 	int	a;
-// 	int	b;
-// 	int	c;
+void	sort3(t_stack *stack)
+{
+	int	a;
+	int	b;
+	int	c;
 
-// 	a = *(int *)stack->first->content;
-// 	b = *(int *)stack->first->next->content;
-// 	c = *(int *)stack->last->content;
-// 	if (a > b && a > c)
-// 	{
-// 		stack->max = a;
-// 		if (c < b)
-// 		{
-// 			stack->min = c;
-// 			swap(stack->first);
-// 			rev_rotate_ab(stack);
-// 		}
-// 		else
-// 		{
-// 			stack->min = b;
-// 			rotate_ab(stack);
-// 		}
-// 	}
-// 	else if (c > b && c > a)
-// 	{
-// 		stack->max = c;
-// 		if (a < b)
-// 			stack->min = a;
-// 		else
-// 		{
-// 			stack->min = b;
-// 			swap(stack->first);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		stack->max = b;
-// 		if (a < b)
-// 		{
-// 			stack->min = a;
-// 			swap(stack->first);
-// 			rotate_ab(stack);
-// 		}
-// 		else
-// 		{
-// 			stack->min = b;
-// 			rev_rotate_ab(stack);
-// 		}
-// 	}
-// }
+	a = *(int *)stack->first->content;
+	b = *(int *)stack->first->next->content;
+	c = *(int *)stack->last->content;
+	if (a > b && a > c)
+	{
+		stack->max = a;
+		if (c < b)
+		{
+			stack->min = c;
+			swap(stack);
+			rev_rotate_ab(stack);
+			ft_putendl_fd("rra", 1);
+		}
+		else
+		{
+			stack->min = b;
+			rotate_ab(stack);
+			ft_putendl_fd("ra", 1);
+		}
+	}
+	else if (c > b && c > a)
+	{
+		stack->max = c;
+		if (a < b)
+			stack->min = a;
+		else
+		{
+			stack->min = b;
+			swap(stack);
+		}
+	}
+	else
+	{
+		stack->max = b;
+		if (a < b)
+		{
+			stack->min = a;
+			swap(stack);
+			rotate_ab(stack);
+			ft_putendl_fd("ra", 1);
+		}
+		else
+		{
+			stack->min = b;
+			rev_rotate_ab(stack);
+			ft_putendl_fd("rra", 1);
+		}
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -145,11 +149,11 @@ int	main(int argc, char **argv)
 		// 	ft_putendl_fd("Error", 2);
 		if (convert_input(argc, argv, &stack_a) == 1)
 			ft_putendl_fd("Error", 2);
-		while (stack_a.first != NULL)
-		{
-			printf("%d ", *(int *)stack_a.first->content);
-			stack_a.first = stack_a.first->next;
-		}
+		// while (stack_a.first != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_a.first->content);
+		// 	stack_a.first = stack_a.first->next;
+		// }
 		printf("\n");
 		fflush(0);
 		while (stack_a.len > 3)
@@ -159,6 +163,7 @@ int	main(int argc, char **argv)
 			fflush(0);
 			move(&stack_a, &stack_b, &best_node);
 		}
+		//printf("%d - stack_a_len\n", stack_a.len);
 		//transfer(&stack_a, &stack_b);
 		// while (stack_a != NULL)
 		// {
@@ -179,17 +184,50 @@ int	main(int argc, char **argv)
 		// printf("\n");
 
 
-		stack_b.last->next = NULL;
+		// stack_b.last->next = NULL;
 
-		//sort3(&stack_a);
 		//ft_push_toa(&stack_a, &stack_b);
 
 
-		while (stack_b.first != NULL)
-		{
-			printf("%d ", *(int *)stack_b.first->content);
-			stack_b.first = stack_b.first->next;
-		}
+		// while (stack_b.first != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_b.first->content);
+		// 	stack_b.first = stack_b.first->next;
+		// }
+		printf("%d - stack_a_len\n", stack_a.len);
+		fflush(0);
+		printf("%d - stack_a_first value\n", *(int *)stack_a.first->content);
+		fflush(0);
+		printf("%p - stack_a_first \n", stack_a.first);
+		printf("%d - stack_a_first next value\n", *(int *)stack_a.first->next->content);
+		printf("%p - stack_a_first next \n", stack_a.first->next);
+		fflush(0);
+		printf("%d - stack_a_first next next value\n", *(int *)stack_a.first->next->next->content);
+		printf("%p - stack_a_first next next\n", stack_a.first->next->next);
+		printf("%d - stack_a_last value\n", *(int *)stack_a.last->content);
+		printf("%p - stack_a_last \n", stack_a.last);
+		printf("%p - stack_a_last next\n", stack_a.last->next);
+		sort3(&stack_a);
+		printf("%d - stack_a_first value\n", *(int *)stack_a.first->content);
+		fflush(0);
+		printf("%p - stack_a_first \n", stack_a.first);
+		fflush(0);
+		// printf("%d - stack_a_first next value\n", *(int *)stack_a.first->next->content);
+		// fflush(0);
+		// printf("%p - stack_a_first next \n", stack_a.first->next);
+		// fflush(0);
+		// printf("%d - stack_a_first next next value\n", *(int *)stack_a.first->next->next->content);
+		// printf("%p - stack_a_first next next\n", stack_a.first->next->next);
+		printf("%d - stack_a_last value\n", *(int *)stack_a.last->content);
+		printf("%p - stack_a_last \n", stack_a.last);
+		fflush(0);
+		//printf("%d - stack_a_len\n", stack_a.len);
+		// stack_a.last->next = NULL;
+		// while (stack_a.first != NULL)
+		// {
+		// 	printf("%d ", *(int *)stack_a.first->content);
+		// 	stack_a.first = stack_a.first->next;
+		// }
 		// printf("\n");
 		// // while (stack_b->next != stack_b)
 		// while (stack_b != NULL)

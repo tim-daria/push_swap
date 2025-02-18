@@ -28,7 +28,7 @@ static int	find_pos_inb(t_stack b, void *num)
 	}
 	else
 	{
-		while (*(int*)num > *(int*)b.first->content || *(int*)num < *(int*)b.first->next->content)
+		while (*(int*)num < *(int*)b.first->content && *(int*)num > *(int*)b.first->next->content)
 		{
 			i++;
 			b.first = b.first->next;
@@ -49,23 +49,31 @@ void	find_bestnode(t_stack a, t_stack b, t_best *best_node)
 	//sum = 0;
 	// i = 0;
 	index_a = 0;
-	// if (b.len < 2)
-	// {
-	// 	best_node->sum = 0;
-	// 	printf("best_node movements - %d ", best_node->rs);
-	// 	return;
-	// }
-	best_node->sum = INT_MAX;
-	a.last->next = NULL;
-	printf("best_node movements - %d ", best_node->sum);
-	while (a.first != NULL)
+	init_tbest(&current);
+	if (b.len < 2)
 	{
+		//best_node->sum = 0;
+		*best_node = current;
+		printf("best_node movements - %d ", best_node->rs);
+		a.first = a.first->next;
+		index_a++;
+		return;
+	}
+	best_node->sum = INT_MAX;
+	// a.last->next = NULL;
+	printf("best_node movements - %d ", best_node->sum);
+	fflush(0);
+	while (index_a < a.len)
+	{
+		printf("abc");
+		fflush(0);
 		//cost_a = ft_min(i, a.len - i);
 		index_b = find_pos_inb(b, a.first->content);
-		printf("pos_b - %d", index_b);
+		printf("pos_b - %d\n", index_b);
 		fflush(0);
 		//cost_b = ft_min(k, b.len - k);
 		get_direction(index_a, index_b, a.len, b.len, &current);
+		//printf("current_sum = %d, best_node.sum = %d, pos = %d\n", current.sum, best_node->sum, *(int*) best_node->pos->content);
 		if (current.sum < best_node->sum)
 		{
 			*best_node = current;
@@ -85,7 +93,7 @@ void	find_bestnode(t_stack a, t_stack b, t_best *best_node)
 		// 	else
 		// 		min.rrb = cost_b;
 		// }
-		a.first = a.first->next;
+		// a.first = a.first->next;
 		index_a++;
 	}
 }

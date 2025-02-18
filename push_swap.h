@@ -39,7 +39,7 @@ typedef struct s_best
 	int		rrb;
 } t_best;
 
-void	swap(t_list *first);
+void	swap(t_stack *stack);
 void	rotate_ab(t_stack *stack);
 void	rev_rotate_ab(t_stack *stack);
 void	do_rotations(t_stack *stack_a, t_stack *stack_b, t_best *to_move);
@@ -49,6 +49,7 @@ void	move(t_stack *stack_a, t_stack *stack_b, t_best *to_move);
 void	sort3(t_stack *stack);
 int		ft_min(int a, int b);
 int		ft_abs(int i);
+void	init_tbest(t_best *src);
 t_list *ft_before_last(t_list *lst, t_list *last);
 
 

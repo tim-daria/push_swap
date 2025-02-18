@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 static t_best	ra_rb(int i, int j)
 {
 	t_best dir;
 
+	init_tbest(&dir);
 	dir.sum = ft_min(i, j) + ft_abs(i - j);
 	dir.rs = ft_min(i, j);
 	if (i - j < 0)
@@ -28,6 +30,7 @@ static t_best	rra_rrb(int i, int j, int size_a, int size_b)
 {
 	t_best dir;
 
+	init_tbest(&dir);
 	dir.sum = ft_min(size_a - i, size_b - j) + ft_abs((size_a - i) - (size_b - j));
 	dir.rrs = ft_min(size_a - i, size_b - j);
 	if ((size_a - i) - (size_b - j) < 0)
@@ -41,6 +44,7 @@ static t_best	ra_rrb(int i, int j, int size_b)
 {
 	t_best dir;
 
+	init_tbest(&dir);
 	dir.sum = i + size_b - j;
 	dir.ra = i;
 	dir.rrb = size_b - j;
@@ -78,7 +82,9 @@ void	get_direction(int i, int j, int size_a, int size_b, t_best *current)
 	if (rra_rb_value.sum < current->sum)
 		*current = rra_rb_value;
 	//size_a - i + j;
-	rra_rrb_value =rra_rrb(i, j, size_a, size_b);
+	rra_rrb_value = rra_rrb(i, j, size_a, size_b);
+	printf("%d - rra_rrb_value\n", rra_rrb_value.sum);
+	fflush(0);
 	if (rra_rrb_value.sum < current->sum)
 		*current = rra_rrb_value;
 	//ft_min(size_a - i, size_b - j) + ft_abs((size_a - i) - (size_b - j));

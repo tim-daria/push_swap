@@ -22,13 +22,29 @@ int	ft_min(int a, int b)
 
 int	ft_abs(int i)
 {
-	return (i * (-1));
+	if (i < 0)
+		return (i * (-1));
+	return (i);
 }
 t_list *ft_before_last(t_list *lst, t_list *last)
 {
-	while (lst->next != last)
+	t_list * current;
+
+	current = lst;
+	while (current->next != last)
 	{
-		lst = lst->next;
+		current = current->next;
 	}
-	return (lst);
+	return (current);
+}
+
+void	init_tbest(t_best *src)
+{
+	src->rs = 0;
+	src->rrs = 0;
+	src->ra = 0;
+	src->rra = 0;
+	src->rb = 0;
+	src->rrb = 0;
+	src->sum = 0;
 }

@@ -13,16 +13,24 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	swap(t_list *first)
+void swap(t_stack *stack)
 {
-	void	*temp;
+	void *temp;
 
-	temp = first->content;
-	first->content = first->next->content;
-	first->next->content = temp;
+	if (stack->len < 2)
+		return;
+	temp = stack->first->content;
+	stack->first->content = stack->first->next->content;
+	stack->first->next->content = temp;
+	ft_putendl_fd("sa", 1);
+	fflush(0);
+	// printf("%d - stack_a_first value\n", *(int *)stack->first->content);
+	// fflush(0);
+	// printf("%d - stack_a_first next value\n", *(int *)stack->first->next->content);
+	// fflush(0);
 }
 
-static void	ft_push_tob(t_stack *stack_b, void *num)
+static void ft_push_tob(t_stack *stack_b, void *num)
 {
 	if (stack_b->first == NULL)
 	{
@@ -36,10 +44,10 @@ static void	ft_push_tob(t_stack *stack_b, void *num)
 	}
 	ft_putendl_fd("pb", 1);
 }
-static void	*ft_pop(t_list **src)
+static void *ft_pop(t_list **src)
 {
-	t_list	*temp;
-	void	*num;
+	t_list *temp;
+	void *num;
 
 	temp = *src;
 	num = temp->content;
@@ -60,9 +68,9 @@ static void	*ft_pop(t_list **src)
 // 	}
 // }
 
-void	move(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
+void move(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
 {
-	void	*num;
+	void *num;
 
 	if (stack_b->len == 0 && stack_a->first)
 	{
@@ -77,9 +85,9 @@ void	move(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
 	fflush(0);
 	stack_a->len--;
 	ft_push_tob(stack_b, num);
-	if (*(int*)num > stack_b->max)
+	if (*(int *)num > stack_b->max)
 		stack_b->max = *(int *)num;
-	if (*(int*)num < stack_b->min)
+	if (*(int *)num < stack_b->min)
 		stack_b->min = *(int *)num;
 	stack_b->len++;
 }
