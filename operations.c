@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:00:58 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/17 16:08:07 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:19:13 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,59 @@ static void *ft_pop(t_list **src)
 	free(temp);
 	return (num);
 }
+int	find_pos_ina(t_stack *a, void *num)
+{
+	int	i;
+	t_stack	temp;
+
+	i = 0;
+	temp = *a;
+	if (*(int*)num > temp.max || *(int*)num < temp.min)
+	{
+		while (*(int*)temp.first->content != temp.min)
+		{
+			i++;
+			temp.first = temp.first->next;
+		}
+	}
+	else
+	{
+		while (*(int*)num > *(int*)temp.first->content && *(int*)num < *(int*)temp.first->next->content)
+		{
+			i++;
+			temp.first = temp.first->next;
+		}
+	}
+	return (i);
+}
+
+void	stacka_rot_direction(t_best *dir)
+{
+	
+
+}
 
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 {
 	void	*num;
+	int		index_a;
+	t_best	to_move;
 
+	init_tbest(&to_move);
 	while (stack_b->len > 0)
 	{
-		num = ft_pop(stack_b->first);
-
-		ft_lstadd_front(dst, ft_lstnew(num));
+		num = ft_pop(&stack_b->first);
+		stack_b->len--;
+		index_a = find_pos_ina(stack_a, stack_b->first->content);
+		stacka_rot_direction(&to_move);
+		do_rotations(stack_a, stack_b, &to_move);
+		ft_lstadd_front(&stack_a->first, ft_lstnew(num));
+		stack_b->last->next = stack_b->first;
+		if (*(int *)num > stack_a->max)
+			stack_a->max = *(int *)num;
+		if (*(int *)num < stack_a->min)
+			stack_a->min = *(int *)num;
+		stack_a->len++;
 		ft_putendl_fd("pa", 1);
 	}
 }
