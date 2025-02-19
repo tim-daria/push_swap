@@ -66,26 +66,16 @@ void	get_direction(int i, int j, int size_a, int size_b, t_best *current)
 	t_best	ra_rrb_value;
 	t_best	rra_rb_value;
 	t_best	rra_rrb_value;
-	//t_best	min;
 
 	ra_rb_value = ra_rb(i, j);
-	//ft_min(i, j) + ft_abs(i - j);
-	//min = ra_rb;
 	*current = ra_rb_value;
 	ra_rrb_value = ra_rrb(i, j, size_b);
 	if (ra_rrb_value.sum < current->sum)
 		*current = ra_rrb_value;
-	//ra_rrb = i + size_b - j;
-	// if (ra_rrb < min)
-	// 	min = ra_rrb;
 	rra_rb_value = rra_rb(i, j, size_a);
 	if (rra_rb_value.sum < current->sum)
 		*current = rra_rb_value;
-	//size_a - i + j;
 	rra_rrb_value = rra_rrb(i, j, size_a, size_b);
-	printf("%d - rra_rrb_value\n", rra_rrb_value.sum);
-	fflush(0);
 	if (rra_rrb_value.sum < current->sum)
 		*current = rra_rrb_value;
-	//ft_min(size_a - i, size_b - j) + ft_abs((size_a - i) - (size_b - j));
 }

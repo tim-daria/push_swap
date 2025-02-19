@@ -72,7 +72,7 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 		stack_a->len++;
 	}
 	stack_a->last = ft_lstlast(temp);
-	//stack_a->last->next = stack_a->first;
+	stack_a->last->next = stack_a->first;
 	free (str_array);
 	return (0);
 }
@@ -154,13 +154,13 @@ int	main(int argc, char **argv)
 		// 	printf("%d ", *(int *)stack_a.first->content);
 		// 	stack_a.first = stack_a.first->next;
 		// }
-		printf("\n");
-		fflush(0);
+		// printf("\n");
+		// fflush(0);
 		while (stack_a.len > 3)
 		{
 			find_bestnode(stack_a, stack_b, &best_node);
-			printf("best node sum = %d\n", best_node.sum);
-			fflush(0);
+			// printf("best node sum = %d\n", best_node.sum);
+			// fflush(0);
 			move(&stack_a, &stack_b, &best_node);
 		}
 		//printf("%d - stack_a_len\n", stack_a.len);
@@ -186,41 +186,41 @@ int	main(int argc, char **argv)
 
 		// stack_b.last->next = NULL;
 
-		//ft_push_toa(&stack_a, &stack_b);
-
 
 		// while (stack_b.first != NULL)
 		// {
 		// 	printf("%d ", *(int *)stack_b.first->content);
 		// 	stack_b.first = stack_b.first->next;
 		// }
-		printf("%d - stack_a_len\n", stack_a.len);
-		fflush(0);
-		printf("%d - stack_a_first value\n", *(int *)stack_a.first->content);
-		fflush(0);
-		printf("%p - stack_a_first \n", stack_a.first);
-		printf("%d - stack_a_first next value\n", *(int *)stack_a.first->next->content);
-		printf("%p - stack_a_first next \n", stack_a.first->next);
-		fflush(0);
-		printf("%d - stack_a_first next next value\n", *(int *)stack_a.first->next->next->content);
-		printf("%p - stack_a_first next next\n", stack_a.first->next->next);
-		printf("%d - stack_a_last value\n", *(int *)stack_a.last->content);
-		printf("%p - stack_a_last \n", stack_a.last);
-		printf("%p - stack_a_last next\n", stack_a.last->next);
+		// printf("%d - stack_a_len\n", stack_a.len);
+		// fflush(0);
+		// printf("%d - stack_a_first value\n", *(int *)stack_a.first->content);
+		// fflush(0);
+		// printf("%p - stack_a_first \n", stack_a.first);
+		// printf("%d - stack_a_first next value\n", *(int *)stack_a.first->next->content);
+		// printf("%p - stack_a_first next \n", stack_a.first->next);
+		// fflush(0);
+		// printf("%d - stack_a_first next next value\n", *(int *)stack_a.first->next->next->content);
+		// printf("%p - stack_a_first next next\n", stack_a.first->next->next);
+		// printf("%d - stack_a_last value\n", *(int *)stack_a.last->content);
+		// printf("%p - stack_a_last \n", stack_a.last);
+		// printf("%p - stack_a_last next\n", stack_a.last->next);
 		sort3(&stack_a);
-		printf("%d - stack_a_first value\n", *(int *)stack_a.first->content);
-		fflush(0);
-		printf("%p - stack_a_first \n", stack_a.first);
-		fflush(0);
+		ft_push_toa(&stack_a, &stack_b);
+		// printf("%d - stack_a_first value\n", *(int *)stack_a.first->content);
+		// fflush(0);
+		// printf("%p - stack_a_first \n", stack_a.first);
+		// fflush(0);
 		// printf("%d - stack_a_first next value\n", *(int *)stack_a.first->next->content);
 		// fflush(0);
 		// printf("%p - stack_a_first next \n", stack_a.first->next);
 		// fflush(0);
 		// printf("%d - stack_a_first next next value\n", *(int *)stack_a.first->next->next->content);
 		// printf("%p - stack_a_first next next\n", stack_a.first->next->next);
-		printf("%d - stack_a_last value\n", *(int *)stack_a.last->content);
-		printf("%p - stack_a_last \n", stack_a.last);
-		fflush(0);
+		// printf("%d - stack_a_last value\n", *(int *)stack_a.last->content);
+		// printf("%p - stack_a_last \n", stack_a.last);
+		// printf("%p - stack_a_last next\n", stack_a.last->next);
+		// fflush(0);
 		//printf("%d - stack_a_len\n", stack_a.len);
 		// stack_a.last->next = NULL;
 		// while (stack_a.first != NULL)
