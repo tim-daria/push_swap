@@ -65,21 +65,40 @@ int	find_pos_ina(t_stack *a, void *num)
 			temp.first = temp.first->next;
 		}
 	}
-	else
+	else if (*(int*)num < *(int*)temp.first->content)
 	{
-		while (*(int*)num > *(int*)temp.first->content && *(int*)num < *(int*)temp.first->next->content)
+		while (*(int*)num < *(int*)temp.first->content)
 		{
 			i++;
 			temp.first = temp.first->next;
 		}
+		i++;
+	}
+	else
+	{
+		while (*(int*)num > *(int*)temp.first->content)
+		{
+			i++;
+			temp.first = temp.first->next;
+		}
+		i++;
 	}
 	return (i);
 }
 
-void	stacka_rot_direction(t_best *dir)
+void	stacka_rot_direction(t_best *dir, int index_a, int len_a)
 {
-	
+	t_best	ra;
+	t_best	rra;
 
+	init_tbest(&ra);
+	init_tbest(&rra);
+	ra.ra = index_a;
+	rra.rra = len_a - index_a;
+	if (ra.ra < rra.rra)
+		*dir = ra;
+	else
+		*dir = rra;
 }
 
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
@@ -87,24 +106,32 @@ void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 	void	*num;
 	int		index_a;
 	t_best	to_move;
+	void	*pos_min;
 
 	init_tbest(&to_move);
+	stack_b->last->next = NULL;
 	while (stack_b->len > 0)
 	{
 		num = ft_pop(&stack_b->first);
 		stack_b->len--;
-		index_a = find_pos_ina(stack_a, stack_b->first->content);
-		stacka_rot_direction(&to_move);
+		index_a = find_pos_ina(stack_a, num);
+		stacka_rot_direction(&to_move, index_a, stack_a->len);
 		do_rotations(stack_a, stack_b, &to_move);
 		ft_lstadd_front(&stack_a->first, ft_lstnew(num));
-		stack_b->last->next = stack_b->first;
+		//stack_b->last->next = stack_b->first;
 		if (*(int *)num > stack_a->max)
 			stack_a->max = *(int *)num;
 		if (*(int *)num < stack_a->min)
+		{
 			stack_a->min = *(int *)num;
+			pos_min = num;
+		}
 		stack_a->len++;
 		ft_putendl_fd("pa", 1);
 	}
+	index_a = find_pos_ina(stack_a, pos_min);
+	stacka_rot_direction(&to_move, index_a, stack_a->len);
+	do_rotations(stack_a, stack_b, &to_move);
 }
 
 void move(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
