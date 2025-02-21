@@ -57,6 +57,7 @@ int	find_pos_ina(t_stack *a, void *num)
 
 	i = 0;
 	temp = *a;
+
 	if (*(int*)num > temp.max || *(int*)num < temp.min)
 	{
 		while (*(int*)temp.first->content != temp.min)
@@ -65,23 +66,23 @@ int	find_pos_ina(t_stack *a, void *num)
 			temp.first = temp.first->next;
 		}
 	}
-	else if (*(int*)num < *(int*)temp.first->content)
-	{
-		while (*(int*)num < *(int*)temp.first->content)
-		{
-			i++;
-			temp.first = temp.first->next;
-		}
-		i++;
-	}
+	else if (*(int*)num < *(int*)temp.first->content && *(int*)num > *(int*)temp.last->content)
+		return (i);
 	else
 	{
+		if (*(int*)num < *(int*)temp.first->content)
+		{
+			while (*(int*)num < *(int*)temp.first->content)
+			{
+				i++;
+				temp.first = temp.first->next;
+			}
+		}
 		while (*(int*)num > *(int*)temp.first->content)
 		{
 			i++;
 			temp.first = temp.first->next;
 		}
-		i++;
 	}
 	return (i);
 }
@@ -93,12 +94,16 @@ void	stacka_rot_direction(t_best *dir, int index_a, int len_a)
 
 	init_tbest(&ra);
 	init_tbest(&rra);
+
+
 	ra.ra = index_a;
 	rra.rra = len_a - index_a;
 	if (ra.ra < rra.rra)
 		*dir = ra;
 	else
 		*dir = rra;
+	// printf("%d - dir.ra\n", dir->ra);
+	// printf("%d - dir.rra\n", dir->rra);
 }
 
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
@@ -106,7 +111,7 @@ void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 	void	*num;
 	int		index_a;
 	t_best	to_move;
-	void	*pos_min;
+	// void	*pos_min;
 
 	init_tbest(&to_move);
 	stack_b->last->next = NULL;
@@ -115,22 +120,26 @@ void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 		num = ft_pop(&stack_b->first);
 		stack_b->len--;
 		index_a = find_pos_ina(stack_a, num);
+		// printf("%d - len_a\n", stack_a->len);
+		// printf("%d - index_a\n", index_a);
 		stacka_rot_direction(&to_move, index_a, stack_a->len);
 		do_rotations(stack_a, stack_b, &to_move);
 		ft_lstadd_front(&stack_a->first, ft_lstnew(num));
-		//stack_b->last->next = stack_b->first;
+		// printf("aaa -> %p\n", stack_a->first);
+		stack_a->last->next = stack_a->first;
 		if (*(int *)num > stack_a->max)
 			stack_a->max = *(int *)num;
 		if (*(int *)num < stack_a->min)
 		{
 			stack_a->min = *(int *)num;
-			pos_min = num;
+			//pos_min = num;
 		}
 		stack_a->len++;
 		ft_putendl_fd("pa", 1);
 	}
-	index_a = find_pos_ina(stack_a, pos_min);
+	index_a = find_pos_ina(stack_a, &stack_a->min);
 	stacka_rot_direction(&to_move, index_a, stack_a->len);
+	// printf("index_a = %d, to_move.ra = %d, to_move.rra = %d\n", index_a, to_move.ra, to_move.rra);
 	do_rotations(stack_a, stack_b, &to_move);
 }
 
