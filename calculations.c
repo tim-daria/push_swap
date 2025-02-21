@@ -69,7 +69,7 @@ void	find_bestnode(t_stack a, t_stack b, t_best *best_node)
 	}
 	// a.last->next = NULL;
 	// printf("len(A) = %d, len(B) = %d\n", a.len, b.len);
-	index_a = 1;
+	index_a = 0;
 	while (index_a < a.len)
 	{
 		index_b = find_pos_inb(b, a.first->content);

@@ -25,7 +25,7 @@ static t_best	ra_rb(int i, int j)
 	else
 		dir.ra = ft_abs(i - j);
 
-	dir.sum = dir.rr + dir.ra + dir.rb;
+	dir.sum = dir.rr + 2 * dir.ra + 2 * dir.rb;
 	return (dir);
 }
 
@@ -36,12 +36,12 @@ static t_best	rra_rrb(int i, int j, int size_a, int size_b)
 	init_tbest(&dir);
 
 	dir.rrr = ft_min(size_a - i, size_b - j);
-	if ((size_a - i) - (size_b - j) < 0)
+	if ((size_a - i) < (size_b - j))
 		dir.rrb = ft_abs((size_a - i) - (size_b - j));
 	else
 		dir.rra = ft_abs((size_a - i) - (size_b - j));
 
-	dir.sum = dir.rrr + dir.rra + dir.rrb;
+	dir.sum = dir.rrr + 2 * dir.rra + 2 * dir.rrb;
 	return (dir);
 }
 
@@ -54,7 +54,7 @@ static t_best	ra_rrb(int i, int j, int size_b)
 	dir.ra = i;
 	dir.rrb = size_b - j;
 
-	dir.sum = dir.ra + dir.rrb;
+	dir.sum = 2 * dir.ra + 2 * dir.rrb;
 	return (dir);
 }
 
@@ -67,7 +67,7 @@ static t_best	rra_rb(int i, int j, int size_a)
 	dir.rra = size_a - i;
 	dir.rb = j;
 
-	dir.sum = dir.rra + dir.rb;
+	dir.sum = 2 * dir.rra + 2 * dir.rb;
 	return (dir);
 }
 
@@ -83,7 +83,8 @@ void	get_direction(int i, int j, int size_a, int size_b, t_best *current)
 	rra_rb_value = rra_rb(i, j, size_a);
 	rra_rrb_value = rra_rrb(i, j, size_a, size_b);
 
-	*current = ra_rb_value;
+	if (ra_rb_value.sum < current->sum)
+		*current = ra_rb_value;
 	if (ra_rrb_value.sum < current->sum)
 		*current = ra_rrb_value;
 	if (rra_rb_value.sum < current->sum)
