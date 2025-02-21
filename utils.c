@@ -17,7 +17,7 @@ int	ft_min(int a, int b)
 	if (a < b)
 		return (a);
 	else
-	return (b);
+		return (b);
 }
 
 int	ft_abs(int i)
@@ -26,9 +26,10 @@ int	ft_abs(int i)
 		return (i * (-1));
 	return (i);
 }
-t_list *ft_before_last(t_list *lst, t_list *last)
+
+t_list	*ft_before_last(t_list *lst, t_list *last)
 {
-	t_list * current;
+	t_list	*current;
 
 	current = lst;
 	while (current->next != last)

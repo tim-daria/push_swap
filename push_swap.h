@@ -14,9 +14,9 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "Libft/libft.h"
-#include <stdlib.h>
-#include <limits.h>
+# include "Libft/libft.h"
+# include <stdlib.h>
+# include <limits.h>
 
 typedef struct s_stack
 {
@@ -25,7 +25,7 @@ typedef struct s_stack
 	int		len;
 	int		min;
 	int		max;
-} t_stack;
+}	t_stack;
 
 typedef struct s_best
 {
@@ -37,7 +37,7 @@ typedef struct s_best
 	int		rra;
 	int		rb;
 	int		rrb;
-} t_best;
+}	t_best;
 
 void	swap(t_stack *stack);
 void	rotate_ab(t_stack *stack);
@@ -50,7 +50,7 @@ void	sort3(t_stack *stack);
 int		ft_min(int a, int b);
 int		ft_abs(int i);
 void	init_tbest(t_best *src);
-t_list *ft_before_last(t_list *lst, t_list *last);
+t_list	*ft_before_last(t_list *lst, t_list *last);
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b);
 
 

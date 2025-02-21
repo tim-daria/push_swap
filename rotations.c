@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void	rotate_ab(t_stack *stack)
 {
@@ -38,10 +37,10 @@ void	rev_rotate_ab(t_stack *stack)
 	t_list	*pre_last;
 
 	pre_last = ft_before_last(stack->first, stack->last);
-	//stack->first->next = stack->first;
 	stack->first = stack->last;
 	stack->last = pre_last;
 }
+
 void	do_rotations(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
 {
 	while (to_move->rr-- > 0)
