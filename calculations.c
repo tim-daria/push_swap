@@ -55,6 +55,7 @@ void	find_bestnode(t_stack a, t_stack b, t_best *best_node)
 	t_best	current;
 	int		index_a;
 	int		index_b;
+	t_list* current_node;
 
 	index_a = 0;
 	init_tbest(&current);
@@ -70,16 +71,18 @@ void	find_bestnode(t_stack a, t_stack b, t_best *best_node)
 	// a.last->next = NULL;
 	// printf("len(A) = %d, len(B) = %d\n", a.len, b.len);
 	index_a = 0;
+	current_node = a.first;
 	while (index_a < a.len)
 	{
-		index_b = find_pos_inb(b, a.first->content);
+		index_b = find_pos_inb(b, current_node->content);
 		get_direction(index_a, index_b, a.len, b.len, &current);
 		if (current.sum < best_node->sum)
 		{
 			// printf("Found best: %d, %d; sum = %d\n", index_a, index_b, current.sum);
 			*best_node = current;
-			best_node->pos = a.first;
+			best_node->pos = current_node;
 		}
+		current_node = current_node->next;
 		index_a++;
 	}
 }
