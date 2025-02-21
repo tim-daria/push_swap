@@ -158,6 +158,7 @@ int	main(int argc, char **argv)
 		// fflush(0);
 		while (stack_a.len > 3)
 		{
+			init_tbest(&best_node);
 			find_bestnode(stack_a, stack_b, &best_node);
 			// printf("best node sum = %d\n", best_node.sum);
 			// fflush(0);

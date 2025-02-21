@@ -46,5 +46,5 @@ void	init_tbest(t_best *src)
 	src->rra = 0;
 	src->rb = 0;
 	src->rrb = 0;
-	src->sum = 0;
+	src->sum = INT_MAX;
 }
