@@ -16,22 +16,35 @@
 static int	find_pos_inb(t_stack b, void *num)
 {
 	int	i;
+	t_stack	temp;
 
 	i = 0;
-	if (*(int*)num > b.max || *(int*)num < b.min)
+	temp = b;
+
+	if (*(int*)num > temp.max || *(int*)num < temp.min)
 	{
-		while (*(int*)b.first->content != b.max)
+		while (*(int*)temp.first->content != temp.max)
 		{
 			i++;
-			b.first = b.first->next;
+			temp.first = temp.first->next;
 		}
 	}
+	else if (*(int*)num > *(int*)temp.first->content && *(int*)num < *(int*)temp.last->content)
+		return (i);
 	else
 	{
-		while (*(int*)num < *(int*)b.first->content && *(int*)num > *(int*)b.first->next->content)
+		if (*(int*)num > *(int*)temp.first->content)
+		{
+			while (*(int*)num > *(int*)temp.first->content)
+			{
+				i++;
+				temp.first = temp.first->next;
+			}
+		}
+		while (*(int*)num < *(int*)temp.first->content)
 		{
 			i++;
-			b.first = b.first->next;
+			temp.first = temp.first->next;
 		}
 	}
 	return (i);
