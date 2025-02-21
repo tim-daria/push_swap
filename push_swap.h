@@ -31,8 +31,8 @@ typedef struct s_best
 {
 	t_list	*pos;
 	int		sum;
-	int		rs;
-	int		rrs;
+	int		rr;
+	int		rrr;
 	int		ra;
 	int		rra;
 	int		rb;

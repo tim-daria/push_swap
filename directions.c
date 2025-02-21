@@ -19,7 +19,7 @@ static t_best	ra_rb(int i, int j)
 
 	init_tbest(&dir);
 	dir.sum = ft_min(i, j) + ft_abs(i - j);
-	dir.rs = ft_min(i, j);
+	dir.rr = ft_min(i, j);
 	if (i - j < 0)
 		dir.rb = ft_abs(i - j);
 	else
@@ -32,7 +32,7 @@ static t_best	rra_rrb(int i, int j, int size_a, int size_b)
 
 	init_tbest(&dir);
 	dir.sum = ft_min(size_a - i, size_b - j) + ft_abs((size_a - i) - (size_b - j));
-	dir.rrs = ft_min(size_a - i, size_b - j);
+	dir.rrr = ft_min(size_a - i, size_b - j);
 	if ((size_a - i) - (size_b - j) < 0)
 		dir.rrb = ft_abs((size_a - i) - (size_b - j));
 	else

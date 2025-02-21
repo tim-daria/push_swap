@@ -19,18 +19,18 @@ void	rotate_ab(t_stack *stack)
 	stack->last = stack->last->next;
 }
 
-static void	rotate_rs(t_stack *stack_a, t_stack *stack_b)
+static void	rotate_rr(t_stack *stack_a, t_stack *stack_b)
 {
 	rotate_ab(stack_a);
 	rotate_ab(stack_b);
-	ft_putendl_fd("rs", 1);
+	ft_putendl_fd("rr", 1);
 }
 
-static void	rev_rotate_rs(t_stack *stack_a, t_stack *stack_b)
+static void	rev_rotate_rr(t_stack *stack_a, t_stack *stack_b)
 {
 	rev_rotate_ab(stack_a);
 	rev_rotate_ab(stack_b);
-	ft_putendl_fd("rrs", 1);
+	ft_putendl_fd("rrr", 1);
 }
 
 void	rev_rotate_ab(t_stack *stack)
@@ -44,10 +44,10 @@ void	rev_rotate_ab(t_stack *stack)
 }
 void	do_rotations(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
 {
-	while (to_move->rs-- > 0)
-		rotate_rs(stack_a, stack_b);
-	while (to_move->rrs-- > 0)
-		rev_rotate_rs(stack_a, stack_b);
+	while (to_move->rr-- > 0)
+		rotate_rr(stack_a, stack_b);
+	while (to_move->rrr-- > 0)
+		rev_rotate_rr(stack_a, stack_b);
 	while (to_move->ra-- > 0)
 	{
 		rotate_ab(stack_a);

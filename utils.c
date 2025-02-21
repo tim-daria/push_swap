@@ -40,8 +40,8 @@ t_list *ft_before_last(t_list *lst, t_list *last)
 
 void	init_tbest(t_best *src)
 {
-	src->rs = 0;
-	src->rrs = 0;
+	src->rr = 0;
+	src->rrr = 0;
 	src->ra = 0;
 	src->rra = 0;
 	src->rb = 0;
