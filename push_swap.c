@@ -22,6 +22,18 @@
 // 		len++;
 // 	return (len);
 // }
+
+static int	free_array(char **str_array)
+{
+	int	i;
+
+	i = 0;
+	while (str_array[i])
+		free (str_array[i++]);
+	free (str_array);
+	return (1);
+}
+
 static int	convert_input(int argc, char **argv, t_stack *stack_a)
 {
 	int		i;
@@ -35,26 +47,20 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	else
 	{
 		i = 0;
-		str_array = malloc(argc * sizeof(char*));
+		str_array = malloc(argc * sizeof(char *));
 		if (str_array == NULL)
-			return (1);
+			return (free_array(str_array));
 		while (argc-- > 1)
 		{
-			// str_array[i] = malloc(sizeof(int));
-			// if (str_array[i] == NULL)
-			// 	return (1);
 			str_array[i] = argv[i + 1];
 			i++;
 		}
 		str_array[i] = NULL;
 	}
-	if (str_array == NULL) //|| len_array == 0 //safe_atoi for input_check
-		return (1);
-	//len_array = ft_arraylen(str_array);
 	i = 0;
 	num = malloc(sizeof(int));
-	if (num == NULL)
-		return (1); // delete all allocated memory (str_array)
+	if (num == NULL || str_array == NULL)
+		return (free_array(str_array));
 	*num = ft_atoi(str_array[i++]);
 	stack_a->first = ft_lstnew(num);
 	if (stack_a->first == NULL)
