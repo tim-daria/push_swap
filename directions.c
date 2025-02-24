@@ -6,12 +6,11 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 12:42:13 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/17 15:09:48 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:49:49 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static t_best	ra_rb(int i, int j)
 {

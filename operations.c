@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:00:58 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/19 12:19:13 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:12:38 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	find_pos_ina(t_stack *a, void *num)
 
 	i = 0;
 	temp = *a;
-
 	if (*(int *)num > temp.max || *(int *)num < temp.min)
 	{
 		while (*(int *)temp.first->content != temp.min)

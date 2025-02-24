@@ -6,12 +6,11 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/17 16:33:59 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:05:51 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 // static int	ft_arraylen(char **str_array)
 // {
@@ -58,22 +57,28 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 		str_array[i] = NULL;
 	}
 	i = 0;
-	num = malloc(sizeof(int));
-	if (num == NULL || str_array == NULL)
+	//num = malloc(sizeof(int));
+	if (str_array == NULL)
 		return (free_array(str_array));
-	*num = ft_atoi(str_array[i++]);
-	stack_a->first = ft_lstnew(num);
-	if (stack_a->first == NULL)
-		return (1); // and free all allocated memory
+	// *num = ft_atoi(str_array[i++]);
+	// stack_a->first = ft_lstnew(num);
+	// if (stack_a->first == NULL)
+	// 	return (1); // and free all allocated memory
 	temp = stack_a->first;
-	stack_a->len = 1;
+	//stack_a->len = 1;
 	while (str_array[i] != NULL)
 	{
 		num = malloc(sizeof(int));
-		if (num == NULL) // delete all allocated memory
-			return (1);
-		*num = ft_atoi(str_array[i++]);
-		ft_lstadd_back(&temp, ft_lstnew(num));
+		if (num == NULL) // delete all allocated memory str_array + linked list
+			return (free_list_array());
+		*num = ft_atoi(str_array[i++]); //here safe atoi
+		//if num == NULL (check failed)
+		if (stack_a->len == 0)
+			stack_a->first = ft_lstnew(num);
+		else
+			ft_lstadd_back(&temp, ft_lstnew(num));
+		if (stack_a->first == NULL)
+			return (free_list_array());
 		stack_a->len++;
 	}
 	stack_a->last = ft_lstlast(temp);
@@ -151,6 +156,7 @@ int	main(int argc, char **argv)
 		stack_b.len = 0;
 		if (convert_input(argc, argv, &stack_a) == 1)
 			ft_putendl_fd("Error", 2);
+		//check if list is already sorted
 		while (stack_a.len > 3)
 		{
 			init_tbest(&best_node);
@@ -159,6 +165,6 @@ int	main(int argc, char **argv)
 		}
 		sort3(&stack_a);
 		ft_push_toa(&stack_a, &stack_b);
+		ft_lstclear(&stack_a.first, del);
 	}
-	return (0);
 }

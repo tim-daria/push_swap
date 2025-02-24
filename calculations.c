@@ -6,12 +6,11 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:38:55 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/17 15:49:02 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:50:10 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static int	find_pos_inb(t_stack b, void *num)
 {

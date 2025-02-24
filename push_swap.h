@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:00:47 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/17 14:37:52 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:48:59 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_stack
 
 typedef struct s_best
 {
-	t_list	*pos;
 	int		sum;
 	int		rr;
 	int		rrr;
@@ -50,6 +49,7 @@ void	sort3(t_stack *stack);
 int		ft_min(int a, int b);
 int		ft_abs(int i);
 void	init_tbest(t_best *src);
+void	del(void *b);
 t_list	*ft_before_last(t_list *lst, t_list *last);
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b);
 
