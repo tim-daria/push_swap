@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/24 12:05:51 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:38:53 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
 // 		len++;
 // 	return (len);
 // }
+
+int	check_doubles(t_list *temp, void *num)
+{
+	while (temp)
+	{
+		if (*(int *)num = *(int *)temp->content)
+			return (-1);
+		temp = temp->next;
+	}
+	return (0);
+}
 
 static int	free_array(char **str_array)
 {
@@ -66,12 +77,12 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	// 	return (1); // and free all allocated memory
 	temp = stack_a->first;
 	//stack_a->len = 1;
-	while (str_array[i] != NULL)
+	while (str_array[i++] != NULL)
 	{
 		num = malloc(sizeof(int));
-		if (num == NULL) // delete all allocated memory str_array + linked list
+		if (num == NULL || safe_atoi(str_array[i], &num) == -1 || check_doubles(temp, num) == -1)
 			return (free_list_array());
-		*num = ft_atoi(str_array[i++]); //here safe atoi
+		//safe_atoi(str_array[i++], &num); //here safe atoi
 		//if num == NULL (check failed)
 		if (stack_a->len == 0)
 			stack_a->first = ft_lstnew(num);
@@ -79,6 +90,7 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 			ft_lstadd_back(&temp, ft_lstnew(num));
 		if (stack_a->first == NULL)
 			return (free_list_array());
+		temp = stack_a->first;
 		stack_a->len++;
 	}
 	stack_a->last = ft_lstlast(temp);
@@ -142,7 +154,10 @@ void	sort3(t_stack *stack)
 		}
 	}
 }
-
+int	already_sorted()
+{
+	
+}
 int	main(int argc, char **argv)
 {
 	t_stack	stack_a;
@@ -156,6 +171,8 @@ int	main(int argc, char **argv)
 		stack_b.len = 0;
 		if (convert_input(argc, argv, &stack_a) == 1)
 			ft_putendl_fd("Error", 2);
+		if (already_sorted(stack_a.first) == 1)
+			return ;
 		//check if list is already sorted
 		while (stack_a.len > 3)
 		{

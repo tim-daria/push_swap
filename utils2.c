@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 12:16:14 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/24 12:24:29 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/24 14:45:07 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	safe_atoi(const char *nptr, int *num)
 
 	//result = 0;
 	//num = NULL;
+	*num = 0;
 	i = 0;
 	sign = 1;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
@@ -32,6 +33,8 @@ int	safe_atoi(const char *nptr, int *num)
 	}
 	while (ft_isdigit(nptr[i++]))
 	{
+		if (num > INT_MAX / 10 || (num == INT_MAX / 10 && nptr[i] - '0' > INT_MAX % 10))
+			return (-1);
 		*num = *num * 10 + nptr[i] - '0';
 		//result = result * 10 + nptr[i] - '0';
 		//i++;
