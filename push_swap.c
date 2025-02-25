@@ -6,18 +6,18 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/24 15:38:53 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:44:30 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-int	check_doubles(t_list *temp, void *num)
+int	check_doubles(t_list *temp, int *num)
 {
 	while (temp)
 	{
-		if (*(int *)num == *(int *)temp->content)
+		if (*num == *(int *)temp->content)
 			return (-1);
 		temp = temp->next;
 	}
@@ -26,12 +26,11 @@ int	check_doubles(t_list *temp, void *num)
 
 static int	free_list_array(t_list *lst, char **str_array)
 {
-	int	i;
 
-	i = 0;
-	while (str_array[i])
-		free (str_array[i++]);
-	free (str_array);
+	// (void)lst;
+	// (void)str_array;
+	if (str_array)
+		free (str_array);
 	if (lst)
 		ft_lstclear(&lst, del);
 	return (1);
@@ -40,7 +39,7 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 {
 	int		i;
 	char	**str_array;
-	t_list	*temp;
+	//t_list	*temp;
 	int		*num;
 
 	str_array = NULL;
@@ -67,35 +66,38 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	// stack_a->first = ft_lstnew(num);
 	// if (stack_a->first == NULL)
 	// 	return (1); // and free all allocated memory
-	temp = stack_a->first;
+	//temp = stack_a->first;
 	//stack_a->len = 1;
 	while (str_array[i] != NULL)
 	{
 		num = malloc(sizeof(int));
-		if (num == NULL || safe_atoi(str_array[i], num) == -1
-			|| check_doubles(temp, num) == -1)
+		if (num == NULL)
 			return (free_list_array(stack_a->first, str_array));
+		if (safe_atoi(str_array[i], num) == -1 || check_doubles(stack_a->first, num) == -1)
+			{
+				free(num);
+				return (free_list_array(stack_a->first, str_array));
+			}
 			//safe_atoi(str_array[i++], &num); //here safe atoi
 		//if num == NULL (check failed)
 		if (stack_a->len == 0)
 		{
 			stack_a->first = ft_lstnew(num);
-			temp = stack_a->first;
+			//temp = stack_a->first;
 		}
 		else
-			ft_lstadd_back(&temp, ft_lstnew(num));
+			ft_lstadd_back(&stack_a->first, ft_lstnew(num));
 		if (stack_a->first == NULL)
 			return (free_list_array(stack_a->first, str_array));
 		//temp = stack_a->first;
 		stack_a->len++;
 		i++;
 	}
-	stack_a->last = ft_lstlast(temp);
+	stack_a->last = ft_lstlast(stack_a->first);
 	stack_a->last->next = stack_a->first;
 	free (str_array);
 	return (0);
 }
-
 void	sort3(t_stack *stack)
 {
 	int	a;
@@ -154,7 +156,7 @@ void	sort3(t_stack *stack)
 
 static int	already_sorted(t_list *lst)
 {
-	while (lst)
+	while (lst->next)
 	{
 		if (lst->content < lst->next->content)
 			return (0);
@@ -171,11 +173,13 @@ int	main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		stack_a.first = NULL;
-		stack_b.first = NULL;
-		stack_b.len = 0;
+		init_tstack(&stack_a);
+		init_tstack(&stack_b);
 		if (convert_input(argc, argv, &stack_a) == 1)
+		{
 			ft_putendl_fd("Error", 2);
+			return (0);
+		}
 		if (already_sorted(stack_a.first))
 			return (0);
 		while (stack_a.len > 3)
@@ -186,6 +190,14 @@ int	main(int argc, char **argv)
 		}
 		sort3(&stack_a);
 		ft_push_toa(&stack_a, &stack_b);
-		ft_lstclear(&stack_a.first, del);
+		//ft_lstclear(&stack_a.first, del);
 	}
 }
+
+// int main(void) {
+// 	int *n;
+
+// 	n = malloc(sizeof(int));
+// 	safe_atoi("1", n);
+// 	ft_putnbr_fd(*n, 1);
+// }

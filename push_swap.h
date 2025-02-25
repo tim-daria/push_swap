@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:00:47 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/24 11:48:59 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:07:00 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	sort3(t_stack *stack);
 int		ft_min(int a, int b);
 int		ft_abs(int i);
 void	init_tbest(t_best *src);
+void	init_tstack(t_stack *src);
 void	del(void *b);
 int		safe_atoi(const char *nptr, int *num);
 t_list	*ft_before_last(t_list *lst, t_list *last);
