@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/25 17:44:30 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:41:33 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,20 @@ int	main(int argc, char **argv)
 		}
 		sort3(&stack_a);
 		ft_push_toa(&stack_a, &stack_b);
-		//ft_lstclear(&stack_a.first, del);
+		stack_a.last->next = NULL;
+		//free(&stack_a->first);
+		// t_list *temp = stack_a.first;
+
+		// while (temp)
+		// {
+		// 	printf("content %d\n", *(int *)temp->content); // Print the content of each node
+		// 	temp = temp->next; // Move to the next node
+		// }
+		// for (int i = 0; i < stack_a.len; i++)
+		// 	printf("len: %i cont: %i\n", stack_a.len, *(int *)stack_a.first->content);
+		ft_lstclear(&stack_a.first, del);
 	}
+	return 0;
 }
 
 // int main(void) {
