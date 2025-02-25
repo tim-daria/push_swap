@@ -50,6 +50,7 @@ int		ft_min(int a, int b);
 int		ft_abs(int i);
 void	init_tbest(t_best *src);
 void	del(void *b);
+int		safe_atoi(const char *nptr, int *num);
 t_list	*ft_before_last(t_list *lst, t_list *last);
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b);
 

@@ -33,7 +33,8 @@ int	safe_atoi(const char *nptr, int *num)
 	}
 	while (ft_isdigit(nptr[i++]))
 	{
-		if (num > INT_MAX / 10 || (num == INT_MAX / 10 && nptr[i] - '0' > INT_MAX % 10))
+		if (*num > INT_MAX / 10 || (*num == INT_MAX / 10
+				&& ((nptr[i] - '0') > INT_MAX % 10)))
 			return (-1);
 		*num = *num * 10 + nptr[i] - '0';
 		//result = result * 10 + nptr[i] - '0';
