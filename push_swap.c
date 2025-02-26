@@ -6,7 +6,7 @@
 /*   By: dtimofee <dtimofee@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:01:46 by dtimofee          #+#    #+#             */
-/*   Updated: 2025/02/25 18:41:33 by dtimofee         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:16:25 by dtimofee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,70 +98,87 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	free (str_array);
 	return (0);
 }
+
 void	sort3(t_stack *stack)
 {
 	int	a;
 	int	b;
 	int	c;
 
-	a = *(int *)stack->first->content;
-	b = *(int *)stack->first->next->content;
-	c = *(int *)stack->last->content;
-	if (a > b && a > c)
+	if (stack->len == 1)
+		return ;
+	else if (stack->len == 2)
 	{
-		stack->max = a;
-		if (c < b)
-		{
-			stack->min = c;
+		if (*(int *)stack->first->content > *(int *)stack->first->next->content)
 			swap(stack);
-			rev_rotate_ab(stack);
-			ft_putendl_fd("rra", 1);
-		}
-		else
-		{
-			stack->min = b;
-			rotate_ab(stack);
-			ft_putendl_fd("ra", 1);
-		}
-	}
-	else if (c > b && c > a)
-	{
-		stack->max = c;
-		if (a < b)
-			stack->min = a;
-		else
-		{
-			stack->min = b;
-			swap(stack);
-		}
+		return ;
 	}
 	else
 	{
-		stack->max = b;
-		if (a < b)
+		a = *(int *)stack->first->content;
+		b = *(int *)stack->first->next->content;
+		c = *(int *)stack->last->content;
+		if (a > b && a > c)
 		{
-			stack->min = a;
-			swap(stack);
-			rotate_ab(stack);
-			ft_putendl_fd("ra", 1);
+			stack->max = a;
+			if (c < b)
+			{
+				stack->min = c;
+				swap(stack);
+				rev_rotate_ab(stack);
+				ft_putendl_fd("rra", 1);
+			}
+			else
+			{
+				stack->min = b;
+				rotate_ab(stack);
+				ft_putendl_fd("ra", 1);
+			}
+		}
+		else if (c > b && c > a)
+		{
+			stack->max = c;
+			if (a < b)
+				stack->min = a;
+			else
+			{
+				stack->min = b;
+				swap(stack);
+			}
 		}
 		else
 		{
-			stack->min = b;
-			rev_rotate_ab(stack);
-			ft_putendl_fd("rra", 1);
+			stack->max = b;
+			if (a < b)
+			{
+				stack->min = a;
+				swap(stack);
+				rotate_ab(stack);
+				ft_putendl_fd("ra", 1);
+			}
+			else
+			{
+				stack->min = b;
+				rev_rotate_ab(stack);
+				ft_putendl_fd("rra", 1);
+			}
 		}
 	}
 }
 
-static int	already_sorted(t_list *lst)
+static int	already_sorted(t_list *stack_a)
 {
-	while (lst->next)
+	t_list	*temp;
+
+	temp = stack_a->next;
+	//temp.last->next = NULL;
+	while (temp->next)
 	{
-		if (lst->content < lst->next->content)
+		if (temp->content > temp->next->content)
 			return (0);
-		lst = lst->next;
+		temp = temp->next;
 	}
+	//ft_lstclear(&stack_a->first, del);
 	return (1);
 }
 
@@ -181,7 +198,12 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		if (already_sorted(stack_a.first))
+		{
+			//ft_lstclear(&stack_a.first, del);
 			return (0);
+		}
+		// stack_a.last = ft_lstlast(stack_a.first);
+		// stack_a.last->next = stack_a.first;
 		while (stack_a.len > 3)
 		{
 			init_tbest(&best_node);
@@ -189,27 +211,9 @@ int	main(int argc, char **argv)
 			move(&stack_a, &stack_b, &best_node);
 		}
 		sort3(&stack_a);
-		ft_push_toa(&stack_a, &stack_b);
+		if (stack_b.len > 0)
+			ft_push_toa(&stack_a, &stack_b);
 		stack_a.last->next = NULL;
-		//free(&stack_a->first);
-		// t_list *temp = stack_a.first;
-
-		// while (temp)
-		// {
-		// 	printf("content %d\n", *(int *)temp->content); // Print the content of each node
-		// 	temp = temp->next; // Move to the next node
-		// }
-		// for (int i = 0; i < stack_a.len; i++)
-		// 	printf("len: %i cont: %i\n", stack_a.len, *(int *)stack_a.first->content);
 		ft_lstclear(&stack_a.first, del);
 	}
-	return 0;
 }
-
-// int main(void) {
-// 	int *n;
-
-// 	n = malloc(sizeof(int));
-// 	safe_atoi("1", n);
-// 	ft_putnbr_fd(*n, 1);
-// }
