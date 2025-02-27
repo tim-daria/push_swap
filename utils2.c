@@ -33,13 +33,13 @@ int	less_than(int a, int b)
 
 long	free_list_array(t_list *lst, char **str_array, int should_free)
 {
-	int i;
+	int	i;
 
 	if (should_free)
 	{
 		i = 0;
 		while (str_array[i] != NULL)
-			free (str_array[i]);
+			free (str_array[i++]);
 	}
 	if (str_array)
 		free (str_array);
