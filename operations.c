@@ -51,59 +51,6 @@ static void	*ft_pop(t_list **src)
 	return (num);
 }
 
-int	find_pos_ina(t_stack *a, void *num)
-{
-	int		i;
-	t_stack	temp;
-
-	i = 0;
-	temp = *a;
-	if (*(int *)num > temp.max || *(int *)num < temp.min)
-	{
-		while (*(int *)temp.first->content != temp.min)
-		{
-			i++;
-			temp.first = temp.first->next;
-		}
-	}
-	else if (*(int *)num < *(int *)temp.first->content && *(int *)num > *(int *)temp.last->content)
-		return (i);
-	else
-	{
-		if (*(int *)num < *(int *)temp.first->content)
-		{
-			while (*(int *)num < *(int *)temp.first->content)
-			{
-				i++;
-				temp.first = temp.first->next;
-			}
-		}
-		while (*(int *)num > *(int *)temp.first->content)
-		{
-			i++;
-			temp.first = temp.first->next;
-		}
-	}
-	return (i);
-}
-
-void	stacka_rot_direction(t_best *dir, int index_a, int len_a)
-{
-	t_best	ra;
-	t_best	rra;
-
-	init_tbest(&ra);
-	init_tbest(&rra);
-
-
-	ra.ra = index_a;
-	rra.rra = len_a - index_a;
-	if (ra.ra < rra.rra)
-		*dir = ra;
-	else
-		*dir = rra;
-}
-
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 {
 	void	*num;
@@ -133,7 +80,7 @@ void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 	do_rotations(stack_a, stack_b, &to_move);
 }
 
-void move(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
+void	move(t_stack *stack_a, t_stack *stack_b, t_best *to_move)
 {
 	void	*num;
 

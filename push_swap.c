@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 int	check_doubles(t_list *temp, int *num)
 {
@@ -26,20 +25,17 @@ int	check_doubles(t_list *temp, int *num)
 
 static int	free_list_array(t_list *lst, char **str_array)
 {
-
-	// (void)lst;
-	// (void)str_array;
 	if (str_array)
 		free (str_array);
 	if (lst)
 		ft_lstclear(&lst, del);
 	return (1);
 }
+
 static int	convert_input(int argc, char **argv, t_stack *stack_a)
 {
 	int		i;
 	char	**str_array;
-	//t_list	*temp;
 	int		*num;
 
 	str_array = NULL;
@@ -59,42 +55,34 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 		str_array[i] = NULL;
 	}
 	i = 0;
-	//num = malloc(sizeof(int));
 	if (str_array == NULL)
 		return (free_list_array(stack_a->first, str_array));
-	// *num = ft_atoi(str_array[i++]);
-	// stack_a->first = ft_lstnew(num);
-	// if (stack_a->first == NULL)
-	// 	return (1); // and free all allocated memory
-	//temp = stack_a->first;
-	//stack_a->len = 1;
 	while (str_array[i] != NULL)
 	{
 		num = malloc(sizeof(int));
 		if (num == NULL)
 			return (free_list_array(stack_a->first, str_array));
-		if (safe_atoi(str_array[i], num) == -1 || check_doubles(stack_a->first, num) == -1)
-			{
-				free(num);
-				return (free_list_array(stack_a->first, str_array));
-			}
-			//safe_atoi(str_array[i++], &num); //here safe atoi
-		//if num == NULL (check failed)
-		if (stack_a->len == 0)
+		if (is_int(str_array[i], num) == -1
+			|| check_doubles(stack_a->first, num) == -1)
 		{
-			stack_a->first = ft_lstnew(num);
-			//temp = stack_a->first;
+			free(num);
+			return (free_list_array(stack_a->first, str_array));
 		}
+		if (stack_a->len == 0)
+			stack_a->first = ft_lstnew(num);
 		else
 			ft_lstadd_back(&stack_a->first, ft_lstnew(num));
 		if (stack_a->first == NULL)
 			return (free_list_array(stack_a->first, str_array));
-		//temp = stack_a->first;
 		stack_a->len++;
 		i++;
 	}
-	stack_a->last = ft_lstlast(stack_a->first);
-	stack_a->last->next = stack_a->first;
+	if (argc == 2)
+	{
+		i = 0;
+		while (str_array[i] != NULL)
+			free (str_array[i++]);
+	}
 	free (str_array);
 	return (0);
 }
@@ -105,9 +93,7 @@ void	sort3(t_stack *stack)
 	int	b;
 	int	c;
 
-	if (stack->len == 1)
-		return ;
-	else if (stack->len == 2)
+	if (stack->len == 2)
 	{
 		if (*(int *)stack->first->content > *(int *)stack->first->next->content)
 			swap(stack);
@@ -149,7 +135,7 @@ void	sort3(t_stack *stack)
 		else
 		{
 			stack->max = b;
-			if (a < b)
+			if (a < c)
 			{
 				stack->min = a;
 				swap(stack);
@@ -158,7 +144,7 @@ void	sort3(t_stack *stack)
 			}
 			else
 			{
-				stack->min = b;
+				stack->min = c;
 				rev_rotate_ab(stack);
 				ft_putendl_fd("rra", 1);
 			}
@@ -170,15 +156,15 @@ static int	already_sorted(t_list *stack_a)
 {
 	t_list	*temp;
 
-	temp = stack_a->next;
-	//temp.last->next = NULL;
+	temp = stack_a;
+	if (temp->next == NULL)
+		return (1);
 	while (temp->next)
 	{
-		if (temp->content > temp->next->content)
+		if (*(int *)temp->content > *(int *)temp->next->content)
 			return (0);
 		temp = temp->next;
 	}
-	//ft_lstclear(&stack_a->first, del);
 	return (1);
 }
 
@@ -197,13 +183,13 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("Error", 2);
 			return (0);
 		}
-		if (already_sorted(stack_a.first))
+		if (already_sorted(stack_a.first) == 1)
 		{
-			//ft_lstclear(&stack_a.first, del);
+			ft_lstclear(&stack_a.first, del);
 			return (0);
 		}
-		// stack_a.last = ft_lstlast(stack_a.first);
-		// stack_a.last->next = stack_a.first;
+		stack_a.last = ft_lstlast(stack_a.first);
+		stack_a.last->next = stack_a.first;
 		while (stack_a.len > 3)
 		{
 			init_tbest(&best_node);

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -51,9 +50,10 @@ int		ft_abs(int i);
 void	init_tbest(t_best *src);
 void	init_tstack(t_stack *src);
 void	del(void *b);
-int		safe_atoi(const char *nptr, int *num);
+int		is_int(const char *nptr, int *num);
 t_list	*ft_before_last(t_list *lst, t_list *last);
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b);
-
+void	stacka_rot_direction(t_best *dir, int index_a, int len_a);
+int	find_pos_ina(t_stack *a, void *num);
 
 #endif

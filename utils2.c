@@ -11,19 +11,14 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-int	safe_atoi(const char *nptr, int *num)
+static long	ft_atol(const char *nptr)
 {
-	//int	result;
-	int	i;
-	int	sign;
+	long	result;
+	int		i;
+	int		sign;
 
-	//result = 0;
-	//num = NULL;
-	if (nptr == NULL || num == NULL)
-		return (-1);
-	*num = 0;
+	result = 0;
 	i = 0;
 	sign = 1;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
@@ -35,18 +30,33 @@ int	safe_atoi(const char *nptr, int *num)
 		i++;
 	}
 	while (ft_isdigit(nptr[i]))
+		result = result * 10 + nptr[i++] - '0';
+	return (result * sign);
+}
+
+int	is_int(const char *nptr, int *num)
+{
+	int		i;
+	long	result;
+
+	i = 0;
+	if (nptr[i] == '+' || nptr[i] == '-')
+		i++;
+	if (nptr[i] == '\0')
+		return (-1);
+	while (nptr[i])
 	{
-		if (*num > INT_MAX / 10 || (*num == INT_MAX / 10
-				&& ((nptr[i] - '0') > INT_MAX % 10)))
+		if (!ft_isdigit(nptr[i]))
 			return (-1);
-		*num = *num * 10 + nptr[i] - '0';
-		//result = result * 10 + nptr[i] - '0';
 		i++;
 	}
-	*num = *num * sign;
-	//printf("%d\n - num", *num);
+	result = ft_atol(nptr);
+	if (result > INT_MAX || result < INT_MIN)
+		return (-1);
+	*num = (int)result;
 	return (0);
 }
+
 void	init_tstack(t_stack *src)
 {
 	src->first = NULL;

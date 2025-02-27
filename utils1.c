@@ -49,6 +49,7 @@ void	init_tbest(t_best *src)
 	src->rrb = 0;
 	src->sum = INT_MAX;
 }
+
 void	del(void *b)
 {
 	free(b);
