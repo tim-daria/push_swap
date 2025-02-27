@@ -37,23 +37,34 @@ typedef struct s_best
 	int		rrb;
 }	t_best;
 
+typedef struct s_stack_sizes
+{
+	int	size_a;
+	int	size_b;
+}	t_stack_sizes;
+
 void	swap(t_stack *stack);
 void	rotate_ab(t_stack *stack);
 void	rev_rotate_ab(t_stack *stack);
 void	do_rotations(t_stack *stack_a, t_stack *stack_b, t_best *to_move);
 void	find_bestnode(t_stack a, t_stack b, t_best *best_node);
-void	get_direction(int i, int j, int size_a, int size_b, t_best *current);
+void	get_direction(int i, int j, t_stack_sizes sizes, t_best *current);
 void	move(t_stack *stack_a, t_stack *stack_b, t_best *to_move);
 void	sort3(t_stack *stack);
 int		ft_min(int a, int b);
+int		greater_than(int a, int b);
+int		less_than(int a, int b);
 int		ft_abs(int i);
 void	init_tbest(t_best *src);
 void	init_tstack(t_stack *src);
 void	del(void *b);
 int		is_int(const char *nptr, int *num);
 t_list	*ft_before_last(t_list *lst, t_list *last);
+long	free_list_array(t_list *lst, char **str_array);
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b);
 void	stacka_rot_direction(t_best *dir, int index_a, int len_a);
-int	find_pos_ina(t_stack *a, void *num);
+int		find_pos_instack(t_stack *stack, void *num, int is_stackb);
+int		already_sorted(t_list *stack_a);
+int		check_doubles(t_list *temp, int *num);
 
 #endif

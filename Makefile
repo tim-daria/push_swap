@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 NAME = push_swap
-SRCS = operations.c push_swap.c calculations.c directions.c rotations.c utils1.c utils2.c
+SRCS = operations.c push_swap.c calculations.c directions.c rotations.c utils1.c utils2.c stacka_rot.c sort_small.c input_check.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_FOLDER = ./Libft

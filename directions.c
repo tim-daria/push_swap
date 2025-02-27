@@ -62,7 +62,7 @@ static t_best	rra_rb(int i, int j, int size_a)
 	return (dir);
 }
 
-void	get_direction(int i, int j, int size_a, int size_b, t_best *current)
+void	get_direction(int i, int j, t_stack_sizes sizes, t_best *current)
 {
 	t_best	ra_rb_value;
 	t_best	ra_rrb_value;
@@ -70,9 +70,9 @@ void	get_direction(int i, int j, int size_a, int size_b, t_best *current)
 	t_best	rra_rrb_value;
 
 	ra_rb_value = ra_rb(i, j);
-	ra_rrb_value = ra_rrb(i, j, size_b);
-	rra_rb_value = rra_rb(i, j, size_a);
-	rra_rrb_value = rra_rrb(i, j, size_a, size_b);
+	ra_rrb_value = ra_rrb(i, j, sizes.size_b);
+	rra_rb_value = rra_rb(i, j, sizes.size_a);
+	rra_rrb_value = rra_rrb(i, j, sizes.size_a, sizes.size_b);
 	if (ra_rb_value.sum < current->sum)
 		*current = ra_rb_value;
 	if (ra_rrb_value.sum < current->sum)

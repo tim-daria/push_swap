@@ -63,7 +63,7 @@ void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 	{
 		num = ft_pop(&stack_b->first);
 		stack_b->len--;
-		index_a = find_pos_ina(stack_a, num);
+		index_a = find_pos_instack(stack_a, num, 0);
 		stacka_rot_direction(&to_move, index_a, stack_a->len);
 		do_rotations(stack_a, stack_b, &to_move);
 		ft_lstadd_front(&stack_a->first, ft_lstnew(num));
@@ -75,7 +75,7 @@ void	ft_push_toa(t_stack *stack_a, t_stack *stack_b)
 		stack_a->len++;
 		ft_putendl_fd("pa", 1);
 	}
-	index_a = find_pos_ina(stack_a, &stack_a->min);
+	index_a = find_pos_instack(stack_a, &stack_a->min, 0);
 	stacka_rot_direction(&to_move, index_a, stack_a->len);
 	do_rotations(stack_a, stack_b, &to_move);
 }
