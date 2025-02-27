@@ -60,7 +60,7 @@ void	init_tstack(t_stack *src);
 void	del(void *b);
 int		is_int(const char *nptr, int *num);
 t_list	*ft_before_last(t_list *lst, t_list *last);
-long	free_list_array(t_list *lst, char **str_array);
+long	free_list_array(t_list *lst, char **str_array, int should_free);
 void	ft_push_toa(t_stack *stack_a, t_stack *stack_b);
 void	stacka_rot_direction(t_best *dir, int index_a, int len_a);
 int		find_pos_instack(t_stack *stack, void *num, int is_stackb);

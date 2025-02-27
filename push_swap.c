@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int	fill_stack(char	**str_array, t_stack *stack_a)
+static int	fill_stack(char	**str_array, t_stack *stack_a, int should_free)
 {
 	int		i;
 	int		*num;
@@ -22,19 +22,19 @@ static int	fill_stack(char	**str_array, t_stack *stack_a)
 	{
 		num = malloc(sizeof(int));
 		if (num == NULL)
-			return (free_list_array(stack_a->first, str_array));
+			return (free_list_array(stack_a->first, str_array, should_free));
 		if (is_int(str_array[i], num) == -1
 			|| check_doubles(stack_a->first, num) == -1)
 		{
 			free(num);
-			return (free_list_array(stack_a->first, str_array));
+			return (free_list_array(stack_a->first, str_array, should_free));
 		}
 		if (stack_a->len == 0)
 			stack_a->first = ft_lstnew(num);
 		else
 			ft_lstadd_back(&stack_a->first, ft_lstnew(num));
 		if (stack_a->first == NULL)
-			return (free_list_array(stack_a->first, str_array));
+			return (free_list_array(stack_a->first, str_array, should_free));
 		stack_a->len++;
 		i++;
 	}
@@ -49,7 +49,7 @@ static char	**multiple_arg(int argc, char **argv, t_stack *stack_a)
 	i = 0;
 	str_array = malloc(argc * sizeof(char *));
 	if (str_array == NULL)
-		return ((char **)free_list_array(stack_a->first, str_array));
+		return ((char **)free_list_array(stack_a->first, str_array, argc == 2));
 	while (argc-- > 1)
 	{
 		str_array[i] = argv[i + 1];
@@ -70,8 +70,8 @@ static int	convert_input(int argc, char **argv, t_stack *stack_a)
 	else
 		str_array = multiple_arg(argc, argv, stack_a);
 	if (str_array == NULL)
-		return (free_list_array(stack_a->first, str_array));
-	if (!fill_stack(str_array, stack_a))
+		return (free_list_array(stack_a->first, str_array, argc == 2));
+	if (!fill_stack(str_array, stack_a, argc == 2))
 		return (0);
 	if (argc == 2)
 	{
