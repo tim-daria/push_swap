@@ -31,8 +31,16 @@ int	less_than(int a, int b)
 	return (a < b);
 }
 
-long	free_list_array(t_list *lst, char **str_array)
+long	free_list_array(t_list *lst, char **str_array, int should_free)
 {
+	int i;
+
+	if (should_free)
+	{
+		i = 0;
+		while (str_array[i] != NULL)
+			free (str_array[i]);
+	}
 	if (str_array)
 		free (str_array);
 	if (lst)
